@@ -26,8 +26,12 @@ jobs:
     - name: Build source code
       run: yarn run build
 
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
     - name: Create release upx file
-      run: npm i -g asar && bash release.sh && mv iterm.upx iterm-${{ github.ref }}.upx
+      run: npm i -g asar && bash release.sh && mv iterm.upx iterm-${{ steps.get_version.outputs.VERSION }}.upx
 
     - name: Create Release
       id: create_release
@@ -47,6 +51,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./iterm-${{ github.ref }}.upx
-        asset_name: iterm-${{ github.ref }}.upx
+        asset_path: ./iterm-${{ steps.get_version.outputs.VERSION }}.upx
+        asset_name: iterm-${{ steps.get_version.outputs.VERSION }}.upx
         asset_content_type: application/octet-stream
