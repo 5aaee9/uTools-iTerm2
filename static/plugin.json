@@ -1,0 +1,22 @@
+{
+    "pluginName": "iTerm2",
+    "name": "unreleased",
+    "description": "快速打开 iTerm2 Profile",
+    "platform": ["darwin"],
+    "author": "Indexyz",
+    "homepage": "https://blog.indexyz.me",
+    "preload":"preload.js",
+    "version": "0.0.1",
+    "logo": "logo.png",
+	"features": [
+	    {
+			"code": "iterm",
+			"explain": "打开 iTerm2 Profile",
+	        "cmds":["iterm", "terminal"]
+	    }, {
+            "code": "shell",
+            "explain": "执行指定的命令",
+            "cmds": ["shell"]
+        }
+	]
+}
