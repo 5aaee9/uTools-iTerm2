@@ -1,0 +1,23 @@
+name: Test and build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 13
+
+    - name: Install
+      run: yarn install
+
+    - name: Eslint Test
+      run: yarn run lint
+
+    - name: Build source code
+      run: yarn run build
