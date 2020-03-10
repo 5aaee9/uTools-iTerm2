@@ -16,12 +16,12 @@ declare type PreloadAction = {
 
 declare type PreloadArgs<T extends PreloadBasicItem> = {
     enter: (action: PreloadAction, callback: DataListCallback<T>) => void
-    search?: (action: any, searchWord: string, callback: DataListCallback<T>) => void
-    select?: (action: any, itemData: T, callback: DataListCallback<T>) => void
+    search?: (action: PreloadAction, searchWord: string, callback: DataListCallback<T>) => void
+    select?: (action: PreloadAction, itemData: T, callback: DataListCallback<T>) => void
     placeholder?: string
 }
 
 declare type PreloadFeature<T extends PreloadBasicItem> = {
-    mode: PreloadType,
+    mode: PreloadType
     args: PreloadArgs<T>
 }

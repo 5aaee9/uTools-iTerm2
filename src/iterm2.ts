@@ -8,7 +8,7 @@ const plist = `${os.homedir()}/Library/Preferences/com.googlecode.iterm2.plist`
 export async function readProfiles(): Promise<PreloadBasicItem[]> {
     const data = await fs.promises.readFile(plist)
 
-    const p: any = await new Promise((res, rej) => {
+    const p: [{'New Bookmarks': { Name: string; Tags: string[] }[]}] = await new Promise((res, rej) => {
         bplist.parseBuffer(data, (err, result) => {
             if (err) {
                 rej(err)
@@ -26,13 +26,13 @@ export async function readProfiles(): Promise<PreloadBasicItem[]> {
         }))
 }
 
-export async function runProfile(profile: string) {
+export async function runProfile(profile: string): Promise<void> {
     await runAppleScript(`tell application "iTerm2"
         create window with profile "${profile}"
     end tell`)
 }
 
-export async function runCommand(command: string) {
+export async function runCommand(command: string): Promise<void> {
     await runAppleScript(`tell application "iTerm2"
         create window with default profile command "${command.replace(/"/g, '\\"')}"
     end tell`)

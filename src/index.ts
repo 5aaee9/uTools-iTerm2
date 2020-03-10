@@ -5,18 +5,18 @@ let ProfileList: PreloadBasicItem[] = []
 export const iterm: PreloadFeature<PreloadBasicItem> = {
     mode: 'list',
     args: {
-        enter: async (action, callback) => {
+        enter: async (action, callback): Promise<void> => {
             ProfileList = await readProfiles()
 
             callback(ProfileList)
         },
-        search: async (action, searchWord, callback) => {
+        search: (action, searchWord, callback): void => {
             if (!searchWord) return
             searchWord = searchWord.toLowerCase()
 
             callback(ProfileList.filter(it => it.title.includes(searchWord)))
         },
-        select: async (action, itemData) => {
+        select: async (action, itemData): Promise<void> => {
             window.utools.hideMainWindow()
             await runProfile(itemData.title)
             window.utools.outPlugin()
@@ -27,15 +27,15 @@ export const iterm: PreloadFeature<PreloadBasicItem> = {
 export const shell: PreloadFeature<PreloadBasicItem> = {
     mode: 'list',
     args: {
-        enter: () => { },
-        search: async (action, searchWord, callback) => {
+        enter: (): void => { },
+        search: (action, searchWord, callback): void => {
             if (!searchWord) return
             callback([{
                 title: '运行指令',
                 description: searchWord,
             }])
         },
-        select: async (action, itemData) => {
+        select: async (action, itemData): Promise<void> => {
             window.utools.hideMainWindow()
             await runCommand(itemData.description!)
             window.utools.outPlugin()
