@@ -6,7 +6,7 @@
     "author": "Indexyz",
     "homepage": "https://blog.indexyz.me",
     "preload":"preload.js",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "logo": "logo.png",
 	"features": [
 	    {
