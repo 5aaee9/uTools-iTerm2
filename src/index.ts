@@ -14,7 +14,7 @@ export const iterm: PreloadFeature<PreloadBasicItem> = {
             if (!searchWord) return
             searchWord = searchWord.toLowerCase()
 
-            callback(ProfileList.filter(it => it.title.includes(searchWord)))
+            callback(ProfileList.filter(it => it.title.toLowerCase().includes(searchWord)))
         },
         select: async (action, itemData): Promise<void> => {
             window.utools.hideMainWindow()
