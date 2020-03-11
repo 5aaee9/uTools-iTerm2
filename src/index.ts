@@ -11,7 +11,10 @@ export const iterm: PreloadFeature<PreloadBasicItem> = {
             callback(ProfileList)
         },
         search: (action, searchWord, callback): void => {
-            if (!searchWord) return
+            if (!searchWord) {
+                callback(ProfileList)
+                return
+            }
             searchWord = searchWord.toLowerCase()
 
             callback(ProfileList.filter(it => it.title.toLowerCase().includes(searchWord)))
@@ -29,7 +32,6 @@ export const shell: PreloadFeature<PreloadBasicItem> = {
     args: {
         enter: (): void => { },
         search: (action, searchWord, callback): void => {
-            if (!searchWord) return
             callback([{
                 title: '运行指令',
                 description: searchWord,
